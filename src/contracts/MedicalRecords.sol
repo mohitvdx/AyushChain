@@ -2,7 +2,7 @@
 pragma solidity ^0.8;
 
 contract MedicalRecords {
-    struct patient {
+    struct Patient {
         string name;
         uint256 age;
         address id;
@@ -12,8 +12,10 @@ contract MedicalRecords {
         address consultant;      
     }
 
-    patient[] public AllPatients;
-    mapping (address => patient) patientInfo;
+    Patient public patient;
+
+    Patient[] public AllPatients;
+    mapping (address => Patient) patientInfo;
 
     uint256 PatientCount = 0;
     //features //settter functions
@@ -45,6 +47,12 @@ contract MedicalRecords {
 
         patientInfo[_patientId].disease = _disease;
         patientInfo[_patientId].confidence = _confidence;
+
+     }
+
+     function getPatient() public returns(Patient) {
+            address _patientId=msg.sender;
+            return patientInfo[_patientId];
 
      }
     //getter functions get the data given by the model.
