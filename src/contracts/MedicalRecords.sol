@@ -6,9 +6,10 @@ contract MedicalRecords {
         string name;
         uint256 age;
         address id;
-        address[] doctorAccessList;
-        uint256[] diagnosis;
-        string record;
+        string disease;
+        uint256 confidence;
+        string treatment;
+        address consultant;      
     }
 
     patient[] public AllPatients;
@@ -17,7 +18,8 @@ contract MedicalRecords {
     uint256 PatientCount = 0;
     //features //settter functions
     // 1.   name
-    //age           .  patientInput
+    //age    
+    //id       .  patientInput
     // 2.   disease
     //    confidence        .. modelResult
     // 3.     treatment     // .   prescription
@@ -30,17 +32,20 @@ contract MedicalRecords {
         PatientCount++;
     }
 
-    function modelResult(address _patientId,string memory _disease, uint _confidence) public returns {
+    function modelResult(string memory _disease, uint _confidence) public  {
         //call the model and get the result
+        address _patientId=msg.sender;
         patientInfo[_patientId].disease = _disease;
         patientInfo[_patientId].confidence = _confidence;
     }
 
-     function Prescription(string memory ,string memory _disease, uint _confidence) public returns {
+     function Prescription(string memory ,string memory _disease, uint _confidence) public  {
         //call the model and get the result
+                address _patientId=msg.sender;
+
         patientInfo[_patientId].disease = _disease;
         patientInfo[_patientId].confidence = _confidence;
 
-
+     }
     //getter functions get the data given by the model.
 }
